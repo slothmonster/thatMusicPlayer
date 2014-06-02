@@ -16,6 +16,7 @@ var api = require('./routes/api');
 // var logout = require('./routes/logout');
 
 var app = express();
+app.set('port', process.env.PORT || 3000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,9 +42,9 @@ app.use('/api', api);
 //super naive solution to authenticate and
 //store the user in the session  instead of using a data store
 passport.use(new BeatsStrategy({
-    clientID: env.BEATS_API_KEY || process.env.BEATS_API_KEY,
-    clientSecret: env.BEATS_SECRET || process.env.BEATS_SECRET,
-    callbackURL: env.BEATS_CALLBACK_URL || process.env.BEATS_CALLBACK_URL
+    clientID: process.env.BEATS_API_KEY || env.BEATS_API_KEY,
+    clientSecret: process.env.BEATS_SECRET || env.BEATS_SECRET,
+    callbackURL: process.env.BEATS_CALLBACK_URL || env.BEATS_CALLBACK_URL
 },
 function(accessToken, refreshToken, profile, done) {
     profile.accessToken = accessToken;
@@ -101,5 +102,8 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var server = app.listen(app.get('port'), function(){
+    console.log('Express server listening on port ' + server.address().port);
+});
 
-module.exports = app;
+// module.exports = app;
