@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var BeatsStrategy = require('passport-beatsmusic').Strategy;
-var env = require('../env_config') || null;
+// var env = require('../env_config') || null;
 
 //require in all the routes
 var routes = require('./routes/index');

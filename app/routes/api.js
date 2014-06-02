@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var env = require('../../env_config') || null;
+// var env = require('../../env_config') || null;
 var request = require('request');
 
 var baseURL = 'https://partner.api.beatsmusic.com/v1/api';
