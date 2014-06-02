@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var BeatsStrategy = require('passport-beatsmusic').Strategy;
-var env = require('../env_config');
+var env = require('../env_config') || null;
 
 //require in all the routes
 var routes = require('./routes/index');
@@ -41,9 +41,9 @@ app.use('/api', api);
 //super naive solution to authenticate and
 //store the user in the session  instead of using a data store
 passport.use(new BeatsStrategy({
-    clientID: env.BEATS_API_KEY,
-    clientSecret: env.BEATS_SECRET,
-    callbackURL: env.BEATS_CALLBACK_URL
+    clientID: env.BEATS_API_KEY || process.env.BEATS_API_KEY,
+    clientSecret: env.BEATS_SECRET || process.env.BEATS_SECRET,
+    callbackURL: env.BEATS_CALLBACK_URL || process.env.BEATS_CALLBACK_URL
 },
 function(accessToken, refreshToken, profile, done) {
     profile.accessToken = accessToken;
