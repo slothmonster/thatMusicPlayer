@@ -11,14 +11,18 @@ var env = require('../env_config');
 
 //require in all the routes
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var login = require('./routes/login');
+var api = require('./routes/api');
+// var login = require('./routes/login');
+// var logout = require('./routes/logout');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'html');
+app.set('layout', './views/layout');
+app.enable('view cache');
+app.engine('html', require('hogan-express'));
 
 app.use(favicon());
 app.use(logger('dev'));
@@ -31,35 +35,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/login', login);
+app.use('/api', api);
 
 //passport-beatsmusic implementation
+//super naive solution to authenticate and
+//store the user in the session  instead of using a data store
 passport.use(new BeatsStrategy({
     clientID: env.BEATS_API_KEY,
     clientSecret: env.BEATS_SECRET,
     callbackURL: env.BEATS_CALLBACK_URL
 },
 function(accessToken, refreshToken, profile, done) {
-    console.log('accessToken ', accessToken);
-    console.log('refreshToken ', refreshToken);
-    console.log('profile ', profile);
+    profile.accessToken = accessToken;
+    profile.refreshToken = refreshToken;
 
     done(null, profile);
-
-  // User.findOrCreate(..., function (err, user) {
-  //   return done(err, user);
-  // });
 }
 ));
 
 passport.serializeUser(function(user, done) {
-    // console.log('serializer log', arguments);
   done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-    // console.log('deserializer log', arguments);
   done(null, obj);
 });
 

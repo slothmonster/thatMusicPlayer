@@ -6,3 +6,33 @@ body {
 a {
   color: #00B7FF;
 }
+
+.trackListing {
+  border: "1px solid black";
+}
+
+.container {
+  display: flex;
+}
+
+.divider {
+  margin-right: 0.3%;
+  margin-left: 0.3%;
+  font-size: medium;
+}
+
+.heading {
+  margin-bottom: 2%;
+}
+
+.search {
+  margin-bottom: 1%;
+}
+
+.active {
+  color: lightcoral;
+}
+
+.active > .artist {
+  font-weight: bold;
+}

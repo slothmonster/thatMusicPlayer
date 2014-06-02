@@ -1,0 +1,17 @@
+<div>
+  <div class="search">
+    <form>
+    <input type="text" name="searchQuery" placeholder="Search Beats Music" ng-model="catalogQuery"></input>
+    <input type="submit" class="submit" value="Search" ng-click="search()"></input>
+    </form>
+  </div>
+  <div class="searchResults">
+    <div class="trackListing" ref="{{ track.id }}" ng-repeat="track in tracks" ng-click="playTrack(track.id)">
+      <div class="container" ng-class="{ 'active' : currentSong.id == track.id }">
+        <span class="title">{{ track.display }}</span>
+        <span class="divider"> | </span>
+        <span class="artist">{{ track.detail }}</span>
+      </div>
+    </div>
+  </div>
+</div>
