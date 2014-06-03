@@ -6,9 +6,9 @@
     </form>
   </div>
   <div class="searchResults">
-    <div class="trackListing" ref="{{ track.id }}" ng-repeat="track in tracks" ng-click="playTrack(track.id)">
+    <div class="trackListing" ref="{{ track.id }}" ng-repeat="track in tracks" >
       <div class="container" ng-class="{ 'active' : currentSong.id == track.id }">
-        <span class="title">{{ track.display }}</span>
+        <span class="title" ng-click="playTrack(track.id)">{{ track.display }}</span>
         <span class="divider"> | </span>
         <span class="artist">{{ track.detail }}</span>
       </div>

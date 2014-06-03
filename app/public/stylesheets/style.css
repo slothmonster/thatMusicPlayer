@@ -33,6 +33,10 @@ a {
   color: lightcoral;
 }
 
-.active > .artist {
+.title {
   font-weight: bold;
+}
+
+.title {
+  cursor: pointer;
 }
